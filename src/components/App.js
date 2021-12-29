@@ -191,11 +191,11 @@ function App() {
           />
           <Route path="/sign-up">
             <Header linkText="Войти" path="/sign-in" />
-            <Register></Register>
+            <Register />
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />
-            <Login></Login>
+            <Login />
           </Route>
           <Redirect to="/sign-in" />
         </Switch>
