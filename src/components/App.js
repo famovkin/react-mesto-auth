@@ -10,7 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
@@ -174,7 +174,7 @@ function App() {
           onClose={closeAllPopups}
           selectedCard={selectedCard}
         />
-        <Header />
+        {false && <Header />}
         <Switch>
           <ProtectedRoute
             path="/"
@@ -187,16 +187,19 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            loggenIn={true}
+            loggenIn={false}
           />
           <Route path="/sign-up">
+            <Header linkText="Войти" path="/sign-in" />
             <Register></Register>
           </Route>
           <Route path="/sign-in">
+            <Header linkText="Регистрация" path="/sign-up" />
             <Login></Login>
           </Route>
+          <Redirect to="/sign-in" />
         </Switch>
-        <Footer />
+        {false && <Footer />}
       </div>
     </CurrentUserContext.Provider>
   );
