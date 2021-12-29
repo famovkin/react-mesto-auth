@@ -13,6 +13,10 @@ import AddPlacePopup from "./AddPlacePopup";
 import { Switch, Route } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
+import InfoToolTip from "./InfoToolTip";
+import success from "../images/success.png";
+import failure from "../images/failure.png";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -138,48 +142,53 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        <InfoToolTip
+          image={true ? success : failure}
+          title={
+            true
+              ? "Вы успешно зарегистрировались!"
+              : "Что-то пошло не так! Попробуйте ещё раз."
+          }
+        />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
+        />
+        <PopupWithForm name="confirm" title="Вы уверены?" textSubmitBtn="Да" />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
+        />
+        <ImagePopup
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+          selectedCard={selectedCard}
+        />
         <Header />
         <Switch>
-          <Route path="/" exact>
-            <Main
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            />
-            <Footer />
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-              isLoading={isLoading}
-            />
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddPlace={handleAddPlaceSubmit}
-              isLoading={isLoading}
-            />
-            <PopupWithForm
-              name="confirm"
-              title="Вы уверены?"
-              textSubmitBtn="Да"
-            />
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-              isLoading={isLoading}
-            />
-            <ImagePopup
-              isOpen={isImagePopupOpen}
-              onClose={closeAllPopups}
-              selectedCard={selectedCard}
-            />
-          </Route>
+          <ProtectedRoute
+            path="/"
+            exact
+            component={Main}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            loggenIn={true}
+          />
           <Route path="/sign-up">
             <Register></Register>
           </Route>
@@ -187,6 +196,7 @@ function App() {
             <Login></Login>
           </Route>
         </Switch>
+        <Footer />
       </div>
     </CurrentUserContext.Provider>
   );
