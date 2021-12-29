@@ -10,6 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import { Switch, Route } from "react-router-dom";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -136,40 +137,54 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-        <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          isLoading={isLoading}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-          isLoading={isLoading}
-        />
-        <PopupWithForm name="confirm" title="Вы уверены?" textSubmitBtn="Да" />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isLoading}
-        />
-        <ImagePopup
-          isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
-          selectedCard={selectedCard}
-        />
+        <Switch>
+          <Route path="/" exact>
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+            <Footer />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+              isLoading={isLoading}
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+              isLoading={isLoading}
+            />
+            <PopupWithForm
+              name="confirm"
+              title="Вы уверены?"
+              textSubmitBtn="Да"
+            />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+              isLoading={isLoading}
+            />
+            <ImagePopup
+              isOpen={isImagePopupOpen}
+              onClose={closeAllPopups}
+              selectedCard={selectedCard}
+            />
+          </Route>
+          <Route path="/sign-up">
+            <h1 style={{ color: "white" }}>Регистрация</h1>
+          </Route>
+          <Route path="/sign-in">
+            <h1 style={{ color: "white" }}>Авторизация</h1>
+          </Route>
+        </Switch>
       </div>
     </CurrentUserContext.Provider>
   );
