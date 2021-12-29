@@ -11,6 +11,8 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Switch, Route } from "react-router-dom";
+import Register from "./Register";
+import Login from "./Login";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -179,10 +181,10 @@ function App() {
             />
           </Route>
           <Route path="/sign-up">
-            <h1 style={{ color: "white" }}>Регистрация</h1>
+            <Register></Register>
           </Route>
           <Route path="/sign-in">
-            <h1 style={{ color: "white" }}>Авторизация</h1>
+            <Login></Login>
           </Route>
         </Switch>
       </div>
