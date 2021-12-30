@@ -14,9 +14,6 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
-import InfoToolTip from "./InfoToolTip";
-import success from "../images/success.png";
-import failure from "../images/failure.png";
 import * as auth from "./auth";
 
 function App() {
@@ -159,14 +156,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <InfoToolTip
-          image={true ? success : failure}
-          title={
-            true
-              ? "Вы успешно зарегистрировались!"
-              : "Что-то пошло не так! Попробуйте ещё раз."
-          }
-        />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}

@@ -1,9 +1,14 @@
 import React from "react";
 import closeButton from "../images/close_icon.svg";
+import success from "../images/success.png";
+// import failure from "../images/failure.png";
 
-function InfoToolTip({ image, title }) {
+function InfoToolTip({
+  image = success,
+  title = "Вы успешно зарегистрировались!",
+}) {
   return (
-    <div className="popup">
+    <div className="popup popup_opened">
       <div className="popup__container popup__container_type_info">
         <button className="popup__close-button" type="button">
           <img className="popup__close-image" src={closeButton} alt="Крестик" />
