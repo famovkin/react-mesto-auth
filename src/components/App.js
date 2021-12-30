@@ -33,6 +33,7 @@ function App() {
   });
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loggedIn, setloggedIn] = useState(false);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -108,9 +109,9 @@ function App() {
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => {
-          state.map((c) => (c._id === card._id ? newCard : c));
-        });
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
       })
       .catch((error) => console.log(error));
   }
@@ -187,7 +188,7 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            loggenIn={false}
+            loggenIn={loggedIn}
           />
           <Route path="/sign-up">
             <Header linkText="Войти" path="/sign-in" />
@@ -195,7 +196,7 @@ function App() {
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />
-            <Login />
+            <Login handleLogin={() => setloggedIn(true)} />
           </Route>
           <Redirect to="/sign-in" />
         </Switch>
