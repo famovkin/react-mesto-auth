@@ -10,13 +10,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoToolTip from "./InfoToolTip";
 import success from "../images/success.png";
 import failure from "../images/failure.png";
+import * as auth from "./auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -34,6 +35,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -43,6 +46,19 @@ function App() {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      auth.getContent(token).then((response) => {
+        if (response) {
+          setloggedIn(true);
+          setEmail(response.data.email);
+          history.push("/");
+        }
+      });
+    }
+  }, [history]);
 
   function handleEditAvatarClick() {
     setisEditAvatarPopupOpen(true);
@@ -175,7 +191,7 @@ function App() {
           onClose={closeAllPopups}
           selectedCard={selectedCard}
         />
-        {false && <Header />}
+        {loggedIn && <Header email={email} linkText="Выйти" path="/#" />}
         <Switch>
           <ProtectedRoute
             path="/"
@@ -188,7 +204,7 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            loggenIn={loggedIn}
+            loggedIn={loggedIn}
           />
           <Route path="/sign-up">
             <Header linkText="Войти" path="/sign-in" />
@@ -200,7 +216,7 @@ function App() {
           </Route>
           <Redirect to="/sign-in" />
         </Switch>
-        {false && <Footer />}
+        {loggedIn && <Footer />}
       </div>
     </CurrentUserContext.Provider>
   );
