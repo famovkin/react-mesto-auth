@@ -58,7 +58,7 @@ function App() {
         }
       });
     }
-  }, [history]);
+  }, [history, loggedIn]);
 
   function handleEditAvatarClick() {
     setisEditAvatarPopupOpen(true);
@@ -191,7 +191,14 @@ function App() {
           onClose={closeAllPopups}
           selectedCard={selectedCard}
         />
-        {loggedIn && <Header email={email} linkText="Выйти" path="/#" />}
+        {loggedIn && (
+          <Header
+            email={email}
+            linkText="Выйти"
+            loggedIn={loggedIn}
+            setLoggedIn={setloggedIn}
+          />
+        )}
         <Switch>
           <ProtectedRoute
             path="/"
