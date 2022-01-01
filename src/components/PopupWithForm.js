@@ -11,8 +11,9 @@ function PopupWithForm(props) {
       className={`popup popup_type_${props.name} ${
         props.isOpen && "popup_opened"
       }`}
+      onClick={props.onClose}
     >
-      <div className="popup__container">
+      <div className="popup__container" onClick={(e) => e.stopPropagation()}>
         <button className="popup__close-button" type="button">
           <img
             className="popup__close-image"
