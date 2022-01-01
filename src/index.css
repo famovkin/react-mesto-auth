@@ -66,6 +66,7 @@
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__error-message/popup__error-message.css);
 
+@import url(./blocks/form-section/form-section.css);
 @import url(./blocks/form-section/__container/form__container.css);
 @import url(./blocks/form-section/__form/form-section__form.css);
 @import url(./blocks/form-section/__title/form-section__title.css);

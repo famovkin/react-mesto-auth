@@ -14,3 +14,9 @@
 .form-section__input:last-of-type {
   margin-bottom: 216px;
 }
+
+@media (max-width: 425px) {
+  .form-section__input:last-of-type {
+    margin-bottom: 173px;
+  }
+}

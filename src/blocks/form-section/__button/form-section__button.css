@@ -16,3 +16,11 @@
 .form-section__button:hover {
   opacity: 0.85;
 }
+
+@media (max-width: 425px) {
+  .form-section__button {
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 20px;
+  }
+}
