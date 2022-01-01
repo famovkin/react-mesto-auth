@@ -54,7 +54,7 @@ function Main(props) {
               card={cardData}
               onCardClick={props.onCardClick}
               onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
+              onBinClick={props.onBinClick}
             />
           ))}
         </ul>

@@ -20,14 +20,14 @@ function Card(props) {
     props.onCardLike(props.card);
   }
 
-  function handleDeleteClick() {
-    props.onCardDelete(props.card);
+  function handleBinClick() {
+    props.onBinClick(props.card);
   }
 
   return (
     <li className="card">
       <button
-        onClick={handleDeleteClick}
+        onClick={handleBinClick}
         className={cardDeleteButtonClassName}
         type="button"
       ></button>

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import CofirmPopup from "./ConfirmPopup";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
@@ -17,10 +17,12 @@ import * as auth from "./auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
-  const [isImagePopupOpen, setisImagePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
+  const [deletedCard, setDeletedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
     about: "",
     avatar: "",
@@ -57,26 +59,28 @@ function App() {
   }, [history, loggedIn]);
 
   function handleEditAvatarClick() {
-    setisEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
-    setisAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleCardClick(cardData) {
-    setisImagePopupOpen(true);
+    setIsImagePopupOpen(true);
     setSelectedCard(cardData);
   }
 
   function closeAllPopups() {
-    setisEditAvatarPopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
-    setisAddPlacePopupOpen(false);
-    setisImagePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
+    setIsConfirmPopupOpen(false);
     setSelectedCard({ name: "", link: "" });
+    setDeletedCard({});
   }
 
   function handleUpdateUser(userDataFromForm) {
@@ -92,9 +96,7 @@ function App() {
         closeAllPopups();
       })
       .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar(avatarLink) {
@@ -110,9 +112,7 @@ function App() {
         avatarLink.value = "";
       })
       .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }
 
   function handleCardLike(card) {
@@ -128,13 +128,21 @@ function App() {
       .catch((error) => console.log(error));
   }
 
-  function handleCardDelete(card) {
+  function onBinClick(card) {
+    setDeletedCard(card);
+    setIsConfirmPopupOpen(true);
+  }
+
+  function handleCardDelete() {
+    setIsLoading(true);
     api
-      .deleteCard(card._id)
+      .deleteCard(deletedCard._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c._id !== deletedCard._id));
+        closeAllPopups();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   }
 
   function handleAddPlaceSubmit(newCardData, clearInputs) {
@@ -147,9 +155,7 @@ function App() {
         clearInputs();
       })
       .catch((error) => console.log(error))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -167,7 +173,12 @@ function App() {
           onAddPlace={handleAddPlaceSubmit}
           isLoading={isLoading}
         />
-        <PopupWithForm name="confirm" title="Вы уверены?" textSubmitBtn="Да" />
+        <CofirmPopup
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onSubmit={handleCardDelete}
+          isLoading={isLoading}
+        />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
@@ -198,7 +209,7 @@ function App() {
             onCardClick={handleCardClick}
             cards={cards}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onBinClick={onBinClick}
             loggedIn={loggedIn}
           />
           <Route path="/sign-up">
