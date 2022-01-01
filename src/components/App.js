@@ -9,6 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import CofirmPopup from "./ConfirmPopup";
+import InfoToolTip from "./InfoToolTip";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
@@ -21,6 +22,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
   const [deletedCard, setDeletedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
@@ -79,6 +82,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setIsConfirmPopupOpen(false);
+    setIsInfoToolTipOpen(false);
     setSelectedCard({ name: "", link: "" });
     setDeletedCard({});
   }
@@ -190,6 +194,11 @@ function App() {
           onClose={closeAllPopups}
           selectedCard={selectedCard}
         />
+        <InfoToolTip
+          isOpen={isInfoToolTipOpen}
+          onClose={closeAllPopups}
+          isSuccess={isSuccess}
+        />
         {loggedIn && (
           <Header
             email={email}
@@ -214,7 +223,10 @@ function App() {
           />
           <Route path="/sign-up">
             <Header linkText="Войти" path="/sign-in" />
-            <Register />
+            <Register
+              setInfoMsg={setIsInfoToolTipOpen}
+              setRegistationStatus={setIsSuccess}
+            />
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />

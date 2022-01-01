@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as auth from "./auth";
 
-function Register() {
+function Register({ setInfoMsg, setRegistationStatus }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,12 +22,17 @@ function Register() {
         .then((res) => {
           if (res) {
             history.push("/sign-in");
+            setRegistationStatus(true);
           } else {
             console.log("Что-то пошло не так");
+            setRegistationStatus(false);
           }
         })
         .catch((e) => console.log(e))
-        .finally(() => setIsLoading(false));
+        .finally(() => {
+          setInfoMsg(true);
+          setIsLoading(false);
+        });
     }
   };
 
