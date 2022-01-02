@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/react-mesto-auth/static/css/main.56decbe0.chunk.css",
-    "main.js": "/react-mesto-auth/static/js/main.6d7fa7bb.chunk.js",
-    "main.js.map": "/react-mesto-auth/static/js/main.6d7fa7bb.chunk.js.map",
+    "main.css": "/react-mesto-auth/static/css/main.0ebd07db.chunk.css",
+    "main.js": "/react-mesto-auth/static/js/main.1f2d2b87.chunk.js",
+    "main.js.map": "/react-mesto-auth/static/js/main.1f2d2b87.chunk.js.map",
     "runtime-main.js": "/react-mesto-auth/static/js/runtime-main.93f952e1.js",
     "runtime-main.js.map": "/react-mesto-auth/static/js/runtime-main.93f952e1.js.map",
     "static/js/2.4a1da41d.chunk.js": "/react-mesto-auth/static/js/2.4a1da41d.chunk.js",
     "static/js/2.4a1da41d.chunk.js.map": "/react-mesto-auth/static/js/2.4a1da41d.chunk.js.map",
     "index.html": "/react-mesto-auth/index.html",
-    "static/css/main.56decbe0.chunk.css.map": "/react-mesto-auth/static/css/main.56decbe0.chunk.css.map",
+    "static/css/main.0ebd07db.chunk.css.map": "/react-mesto-auth/static/css/main.0ebd07db.chunk.css.map",
     "static/js/2.4a1da41d.chunk.js.LICENSE.txt": "/react-mesto-auth/static/js/2.4a1da41d.chunk.js.LICENSE.txt",
     "static/media/index.css": "/react-mesto-auth/static/media/trash.e3c42771.svg",
     "static/media/add_button.bed8c136.svg": "/react-mesto-auth/static/media/add_button.bed8c136.svg",
+    "static/media/burger.a46d5c1c.svg": "/react-mesto-auth/static/media/burger.a46d5c1c.svg",
     "static/media/close_icon.039f1f52.svg": "/react-mesto-auth/static/media/close_icon.039f1f52.svg",
     "static/media/edit_button.6c7bf054.svg": "/react-mesto-auth/static/media/edit_button.6c7bf054.svg",
     "static/media/logo.bbe2a6ea.svg": "/react-mesto-auth/static/media/logo.bbe2a6ea.svg"
@@ -19,7 +20,7 @@
   "entrypoints": [
     "static/js/runtime-main.93f952e1.js",
     "static/js/2.4a1da41d.chunk.js",
-    "static/css/main.56decbe0.chunk.css",
-    "static/js/main.6d7fa7bb.chunk.js"
+    "static/css/main.0ebd07db.chunk.css",
+    "static/js/main.1f2d2b87.chunk.js"
   ]
 }
