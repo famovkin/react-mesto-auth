@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as auth from "./auth";
+import * as auth from "../utils/auth";
 
 function Login({ handleLogin }) {
   const [email, setEmail] = useState("");
