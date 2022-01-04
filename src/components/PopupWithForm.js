@@ -1,5 +1,6 @@
 import React from "react";
 import Popup from "./Popup";
+import Form from "./Form";
 
 function PopupWithForm({ isOpen, name, onClose, ...props }) {
   function handleSubmit(e) {
@@ -8,17 +9,16 @@ function PopupWithForm({ isOpen, name, onClose, ...props }) {
 
   return (
     <Popup isOpen={isOpen} name={name} onClose={onClose}>
-      <form
-        onSubmit={handleSubmit}
-        className={`popup__form popup__form_type_${name}`}
+      <Form
+        handleSubmit={handleSubmit}
         name={name}
+        title={props.title}
+        isLoading={props.isLoading}
+        textLoader={props.textLoader}
+        textSubmitBtn={props.textSubmitBtn}
       >
-        <h2 className="popup__title">{props.title}</h2>
         {props.children}
-        <button className="popup__button" type="submit">
-          {props.isLoading ? props.textLoader : props.textSubmitBtn}
-        </button>
-      </form>
+      </Form>
     </Popup>
   );
 }
