@@ -1,42 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import * as auth from "../utils/auth";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Register({ setInfoMsg, setRegistationStatus }) {
+function Register({ onSubmit, isLoading }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [cleanupFlag, setCleanupFlag] = useState(false);
-  const history = useHistory();
-
-  useEffect(() => {
-    return () => setCleanupFlag(true);
-  }, []);
 
   const handleSubmit = (e) => {
-    if (!cleanupFlag) {
-      setIsLoading(true);
-      e.preventDefault();
-      auth
-        .register(password, email)
-        .then((res) => {
-          if (res) {
-            history.push("/sign-in");
-            setRegistationStatus(true);
-          } else {
-            console.log("Что-то пошло не так");
-            setRegistationStatus(false);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          setRegistrationStatus(false);
-        })
-        .finally(() => {
-          setInfoMsg(true);
-          setIsLoading(false);
-        });
-    }
+    e.preventDefault();
+    onSubmit(password, email);
   };
 
   return (

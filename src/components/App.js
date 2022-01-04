@@ -23,7 +23,7 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccessReg, setIsSuccessReg] = useState(false);
   const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
   const [deletedCard, setDeletedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
@@ -76,9 +76,11 @@ function App() {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
+
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
@@ -174,6 +176,29 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  function registerUser(password, email) {
+    setIsLoading(true);
+    auth
+      .register(password, email)
+      .then((res) => {
+        if (res) {
+          history.push("/sign-in");
+          setIsSuccessReg(true);
+        } else {
+          console.log("Что-то пошло не так");
+          setIsSuccessReg(false);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setIsSuccessReg(false);
+      })
+      .finally(() => {
+        setIsInfoToolTipOpen(true);
+        setIsLoading(false);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -209,7 +234,7 @@ function App() {
         <InfoToolTip
           isOpen={isInfoToolTipOpen}
           onClose={closeAllPopups}
-          isSuccess={isSuccess}
+          isSuccess={isSuccessReg}
         />
         {loggedIn && (
           <Header
@@ -235,10 +260,7 @@ function App() {
           />
           <Route path="/sign-up">
             <Header linkText="Войти" path="/sign-in" />
-            <Register
-              setInfoMsg={setIsInfoToolTipOpen}
-              setRegistationStatus={setIsSuccess}
-            />
+            <Register onSubmit={registerUser} isLoading={isLoading} />
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />
