@@ -51,13 +51,16 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
-      auth.getContent(token).then((response) => {
-        if (response) {
-          setloggedIn(true);
-          setEmail(response.data.email);
-          history.push("/");
-        }
-      });
+      auth
+        .getContent(token)
+        .then((response) => {
+          if (response) {
+            setloggedIn(true);
+            setEmail(response.data.email);
+            history.push("/");
+          }
+        })
+        .catch((e) => console.log(e));
     }
   }, [history, loggedIn]);
 
