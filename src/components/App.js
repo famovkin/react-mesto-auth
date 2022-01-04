@@ -203,6 +203,7 @@ function App() {
   }
 
   function loginUser(password, email, setEmail, setPassword) {
+    setIsLoading(true);
     auth
       .authorize(password, email)
       .then((data) => {
@@ -216,7 +217,8 @@ function App() {
       .catch((e) => {
         console.log(e);
         setloggedIn(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -284,7 +286,7 @@ function App() {
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />
-            <Login onSubmit={loginUser} />
+            <Login onSubmit={loginUser} isLoading={isLoading} />
           </Route>
           <Redirect to="/sign-in" />
         </Switch>
