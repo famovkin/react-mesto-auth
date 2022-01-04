@@ -28,7 +28,10 @@ function Register({ setInfoMsg, setRegistationStatus }) {
             setRegistationStatus(false);
           }
         })
-        .catch((e) => console.log(e))
+        .catch((e) => {
+          console.log(e);
+          setRegistrationStatus(false);
+        })
         .finally(() => {
           setInfoMsg(true);
           setIsLoading(false);
