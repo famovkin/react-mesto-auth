@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Input from "./Input";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const [name, setName] = useState("");
@@ -36,30 +37,24 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <input
+      <Input
         value={name || ""}
         onChange={handleChangeName}
-        id="name-input"
-        className="popup__input popup__input_type_name"
-        type="text"
         name="name"
+        type="text"
         placeholder="Имя"
         minLength="2"
         maxLength="40"
-        required
       />
       <span className="popup__error name-input-error"></span>
-      <input
+      <Input
         value={description || ""}
         onChange={handleChangeDescription}
-        id="job-input"
-        className="popup__input popup__input_type_job"
-        type="text"
         name="job"
+        type="text"
         placeholder="Профессиональная деятельность"
         minLength="2"
         maxLength="200"
-        required
       />
       <span className="popup__error job-input-error"></span>
     </PopupWithForm>
