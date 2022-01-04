@@ -199,6 +199,23 @@ function App() {
       });
   }
 
+  function loginUser(password, email, setEmail, setPassword) {
+    auth
+      .authorize(password, email)
+      .then((data) => {
+        if (data.token) {
+          setEmail("");
+          setPassword("");
+          setloggedIn(true);
+          history.push("/");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setloggedIn(true);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -264,7 +281,7 @@ function App() {
           </Route>
           <Route path="/sign-in">
             <Header linkText="Регистрация" path="/sign-up" />
-            <Login handleLogin={() => setloggedIn(true)} />
+            <Login onSubmit={loginUser} />
           </Route>
           <Redirect to="/sign-in" />
         </Switch>
