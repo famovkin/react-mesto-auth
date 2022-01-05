@@ -3,8 +3,10 @@ import { useState } from "react";
 function useForm() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (event) => {
+    setIsFormValid(event.target.closest(".popup__form").checkValidity());
     let name = event.target.name;
     let val = event.target.value;
 
@@ -31,6 +33,7 @@ function useForm() {
     setErrors,
     values,
     errors,
+    isFormValid,
   };
 }
 

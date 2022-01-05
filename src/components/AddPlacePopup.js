@@ -4,7 +4,8 @@ import Input from "./Input";
 import useForm from "../hooks/useForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
-  const { handleChange, values, setValues, errors, setErrors } = useForm();
+  const { handleChange, values, setValues, errors, setErrors, isFormValid } =
+    useForm();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,9 +16,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
     setValues({ "place-name": "", "place-link": "" });
     setErrors({});
   }, [isOpen, setErrors, setValues]);
-
-  let isFormValid =
-    !Object.keys(errors).length && values["place-name"] && values["place-link"];
 
   return (
     <PopupWithForm

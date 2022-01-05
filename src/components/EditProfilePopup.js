@@ -6,7 +6,8 @@ import useForm from "../hooks/useForm";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
-  const { handleChange, values, setValues, errors, setErrors } = useForm();
+  const { handleChange, values, setValues, errors, setErrors, isFormValid } =
+    useForm();
 
   useEffect(() => {
     setValues({ name: currentUser.name, job: currentUser.about });
@@ -17,9 +18,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
     e.preventDefault();
     onUpdateUser({ name: values["name"], job: values["job"] });
   }
-
-  let isFormValid =
-    !Object.keys(errors).length && values["name"] && values["job"];
 
   return (
     <PopupWithForm

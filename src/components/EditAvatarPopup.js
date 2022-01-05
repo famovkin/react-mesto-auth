@@ -4,7 +4,8 @@ import Input from "./Input";
 import useForm from "../hooks/useForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const { handleChange, values, setValues, errors, setErrors } = useForm();
+  const { handleChange, values, setValues, errors, setErrors, isFormValid } =
+    useForm();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,8 +16,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
     setValues({ "avatar-link": "" });
     setErrors({});
   }, [isOpen, setValues, setErrors]);
-
-  let isFormValid = !Object.keys(errors).length && values["avatar-link"];
 
   return (
     <PopupWithForm
