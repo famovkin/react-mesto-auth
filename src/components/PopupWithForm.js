@@ -16,6 +16,7 @@ function PopupWithForm({ isOpen, name, onClose, ...props }) {
         isLoading={props.isLoading}
         textLoader={props.textLoader}
         textSubmitBtn={props.textSubmitBtn}
+        isFormValid={props.isFormValid}
       >
         {props.children}
       </Form>

@@ -9,7 +9,12 @@ function Form({ handleSubmit, ...props }) {
     >
       <h2 className="popup__title">{props.title}</h2>
       {props.children}
-      <button className="popup__button" type="submit">
+      <button
+        className={`popup__button ${
+          !props.isFormValid ? "popup__button_disabled" : ""
+        }`}
+        type="submit"
+      >
         {props.isLoading ? props.textLoader : props.textSubmitBtn}
       </button>
     </form>

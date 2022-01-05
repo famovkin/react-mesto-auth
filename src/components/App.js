@@ -64,18 +64,6 @@ function App() {
     }
   }, [history, loggedIn]);
 
-  useEffect(() => {
-    const closeByEscape = (e) => {
-      if (e.key === "Escape") {
-        closeAllPopups();
-      }
-    };
-
-    document.addEventListener("keydown", closeByEscape);
-
-    return () => document.removeEventListener("keydown", closeByEscape);
-  }, []);
-
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -123,7 +111,7 @@ function App() {
   function handleUpdateAvatar(avatarLink) {
     setIsLoading(true);
     api
-      .updateProfileAvatar(avatarLink.value)
+      .updateProfileAvatar(avatarLink)
       .then((userDataUpdated) => {
         setCurrentUser({
           ...userDataUpdated,
@@ -166,14 +154,13 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleAddPlaceSubmit(newCardData, clearInputs) {
+  function handleAddPlaceSubmit(newCardData) {
     setIsLoading(true);
     api
       .addNewCard(newCardData)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
-        clearInputs();
       })
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
