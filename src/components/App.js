@@ -118,7 +118,6 @@ function App() {
           avatar: userDataUpdated.avatar,
         });
         closeAllPopups();
-        avatarLink.value = "";
       })
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
