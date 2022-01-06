@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import Input from "./Input";
+import InputWithError from "./InputWithError";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
@@ -31,40 +31,28 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
     >
-      <Input
+      <InputWithError
         value={values["name"] || ""}
         onChange={handleChange}
-        isValid={errors["name"] ? true : false}
+        isInvalid={errors["name"] ? true : false}
+        errorText={errors["name"]}
         name="name"
         type="text"
         placeholder="Имя"
         minLength="2"
         maxLength="40"
       />
-      <span
-        className={`popup__error name-input-error ${
-          errors["name"] ? "popup__error_visible" : ""
-        }`}
-      >
-        {errors["name"]}
-      </span>
-      <Input
+      <InputWithError
         value={values["job"] || ""}
         onChange={handleChange}
-        isValid={errors["job"] ? true : false}
+        isInvalid={errors["job"] ? true : false}
+        errorText={errors["job"]}
         name="job"
         type="text"
         placeholder="Профессиональная деятельность"
         minLength="2"
         maxLength="200"
       />
-      <span
-        className={`popup__error job-input-error ${
-          errors["job"] ? "popup__error_visible" : ""
-        }`}
-      >
-        {errors["job"]}
-      </span>
     </PopupWithForm>
   );
 }

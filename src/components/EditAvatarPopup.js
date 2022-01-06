@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-import Input from "./Input";
+import InputWithError from "./InputWithError";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
@@ -26,21 +26,15 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
       onClose={onClose}
       isFormValid={isFormValid}
     >
-      <Input
+      <InputWithError
         value={values["avatar-link"] || ""}
         onChange={handleChange}
         name="avatar-link"
         type="url"
         placeholder="Ссылка на аватар"
-        isValid={errors["avatar-link"] ? true : false}
+        isInvalid={errors["avatar-link"] ? true : false}
+        errorText={errors["avatar-link"]}
       />
-      <span
-        className={`popup__error avatar-link-input-error ${
-          errors["avatar-link"] ? "popup__error_visible" : ""
-        }`}
-      >
-        {errors["avatar-link"]}
-      </span>
     </PopupWithForm>
   );
 }
