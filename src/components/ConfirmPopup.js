@@ -17,6 +17,7 @@ function ConfirmPopup({ isOpen, onClose, onSubmit, isLoading }) {
       title="Вы уверены?"
       textSubmitBtn="Да"
       textLoader="Удаляем..."
+      isFormValid={true}
     />
   );
 }
