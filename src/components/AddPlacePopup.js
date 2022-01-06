@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Input from "./Input";
-import useForm from "../hooks/useForm";
+import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
-  const { handleChange, values, setValues, errors, setErrors, isFormValid } =
-    useForm();
+  const { handleChange, values, errors, isFormValid, resetForm } =
+    useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlace({ name: values["place-name"], link: values["place-link"] });
   }
 
-  useEffect(() => {
-    setValues({ "place-name": "", "place-link": "" });
-    setErrors({});
-  }, [isOpen, setErrors, setValues]);
+  useEffect(() => resetForm(), [isOpen, resetForm]);
 
   return (
     <PopupWithForm

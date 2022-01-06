@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Input from "./Input";
-import useForm from "../hooks/useForm";
+import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const { handleChange, values, setValues, errors, setErrors, isFormValid } =
-    useForm();
+  const { handleChange, values, errors, isFormValid, resetForm } =
+    useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar(values["avatar-link"]);
   }
 
-  useEffect(() => {
-    setValues({ "avatar-link": "" });
-    setErrors({});
-  }, [isOpen, setValues, setErrors]);
+  useEffect(() => resetForm(), [isOpen, resetForm]);
 
   return (
     <PopupWithForm
