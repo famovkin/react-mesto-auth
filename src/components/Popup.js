@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import closeButton from "../images/close_icon.svg";
 
-function Popup({ isOpen, name, onClose, modForContainer, children }) {
+function Popup({
+  isOpen,
+  name,
+  onClose,
+  modForContainer,
+  children,
+  containerForImage,
+}) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -26,7 +33,11 @@ function Popup({ isOpen, name, onClose, modForContainer, children }) {
       className={`popup ${isOpen ? "popup_opened" : ""} popup_type_${name}`}
       onClick={handleOverlay}
     >
-      <div className={`popup__container ${modForContainer || ""}`}>
+      <div
+        className={
+          containerForImage || `popup__container ${modForContainer || ""}`
+        }
+      >
         {children}
         <button className="popup__close-button" type="button" onClick={onClose}>
           <img className="popup__close-image" src={closeButton} alt="Крестик" />

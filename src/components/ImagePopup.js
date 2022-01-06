@@ -3,7 +3,12 @@ import Popup from "./Popup";
 
 function ImagePopup({ isOpen, name, onClose, ...props }) {
   return (
-    <Popup isOpen={isOpen} name="full-image" onClose={onClose}>
+    <Popup
+      isOpen={isOpen}
+      name="image"
+      onClose={onClose}
+      containerForImage="popup__image-container"
+    >
       <img
         className="popup__image"
         src={props.selectedCard.link}
