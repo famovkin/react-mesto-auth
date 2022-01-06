@@ -15,6 +15,7 @@ function Form({ handleSubmit, ...props }) {
           !props.isFormValid ? "popup__button_disabled" : ""
         }`}
         type="submit"
+        disabled={!props.isFormValid}
       >
         {props.isLoading ? props.textLoader : props.textSubmitBtn}
       </button>
