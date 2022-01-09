@@ -13,7 +13,7 @@ function InputWithError({ name, isInvalid, errorText, ...props }) {
         required
       />
       <span
-        className={`popup__error avatar-link-input-error ${
+        className={`popup__error  ${
           isInvalid ? "popup__error_visible" : ""
         }`}
       >
