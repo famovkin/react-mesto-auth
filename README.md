@@ -1,4 +1,4 @@
-# mesto-react
+# Проект Mesto на React
 
 ---
 
