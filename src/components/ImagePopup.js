@@ -4,7 +4,7 @@ import Popup from "./Popup";
 function ImagePopup({ isOpen, name, onClose, ...props }) {
   return (
     <Popup
-      isOpen={isOpen}
+      isOpen={props.selectedCard.link === "" ? false : isOpen}
       name="image"
       onClose={onClose}
       containerForImage="popup__image-container"
