@@ -41,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "follow-redirects": "^1.14.7",
+    "nanoid": "^3.1.31",
+    "node-forge": "^1.0.0",
+    "postcss": "^8.2.13"
   }
 }
