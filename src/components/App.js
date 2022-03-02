@@ -202,7 +202,7 @@ function App() {
       })
       .catch((e) => {
         console.log(e);
-        setloggedIn(true);
+        setloggedIn(false);
       })
       .finally(() => setIsLoading(false));
   }
